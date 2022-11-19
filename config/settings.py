@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
     'acounts',
     'pages',
+    'products.apps.ProductsConfig',
 
 ]
 
