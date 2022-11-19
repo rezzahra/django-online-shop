@@ -1,0 +1,10 @@
+{% extends '_base.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<form action="" method="post">
+    {% csrf_token %}
+   are u shore logout?
+    <input type="submit" value="yes">
+</form>
+{% endblock content %}

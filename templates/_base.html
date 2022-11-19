@@ -7,7 +7,11 @@
 </head>
 
 <body>
-
+    {% if user.is_authenticated %}
+       <spam> welcom {{ user.email }}  | <a href="{% url 'account_logout' %}">log out</a></spam>
+        {% else %}
+        <a href="{% url 'account_signup' %}">signup</a>|<a href="{% url 'account_login' %}">login</a>
+    {% endif %}
 {% block content %}
 {% endblock content %}
 
