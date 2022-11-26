@@ -1,6 +1,7 @@
 {% extends '_base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 {% block content %}
 
 
@@ -62,7 +63,7 @@
                                     </div>
                                     <button type="button" class="btn btn-small btn-bg-red btn-color-white btn-hover-2"
                                             onclick="window.location.href='cart.html'">
-                                        اضافه به سبد خرید
+                                        {% trans 'add to card' %}
                                     </button>
                                 </div>
                                 <div class="product-footer-meta mt-5 pt-5">
@@ -82,7 +83,7 @@
                                 <div class="nav nav-tabs product-data-tab__head" id="product-tab" role="tablist">
                                     <a class="m-0 product-data-tab__link nav-link active" id="nav-description-tab"
                                        data-toggle="tab" href="#nav-description" role="tab" aria-selected="true">
-                                        <span>توضیحات محصول</span>
+                                        <span>{% trans 'product description' %}</span>
                                     </a>
                                     <a class="m-0 product-data-tab__link nav-link" id="nav-info-tab" data-toggle="tab"
                                        href="#nav-info" role="tab" aria-selected="true">
@@ -90,7 +91,7 @@
                                     </a>
                                     <a class="m-0 product-data-tab__link nav-link" id="nav-reviews-tab"
                                        data-toggle="tab" href="#nav-reviews" role="tab" aria-selected="true">
-                                        <span>نظرات ({{ comments.count}})</span>
+                                        <span>{% trans 'your comment' %} ({{ comments.count}})</span>
                                     </a>
                                 </div>
                                 <div class="tab-content product-data-tab__content" id="product-tabContent">
