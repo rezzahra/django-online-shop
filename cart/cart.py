@@ -1,7 +1,12 @@
 from products.models import Product
 
+
+def save(self):
+    self.session.modified = True
+
+
 class Cart:
-    def __int__(self, request):
+    def __init__(self, request):
         self.request = request
         self.session = request.session
         cart = self.session.get('cart')
@@ -15,9 +20,9 @@ class Cart:
         product_id = str(product.id)
 
         if product_id not in self.cart:
-            self.cart['product_id'] = {'quantity':quantity}
+            self.cart[product_id] = {'quantity': quantity}
         else:
-            self.cart['product_id']['quantity'] += quantity
+            self.cart[product_id]['quantity'] += quantity
 
         self.save()
 
@@ -33,25 +38,23 @@ class Cart:
         cart = self.cart.copy()
 
         for product in products:
-            cart[str(product_id)]['product_obj'] = product
+            cart[str(product.id)]['product_obj'] = product
 
         for item in cart.values():
             yield item
+
+
+    def __len__(self):
+        return len(self.cart.keys())
 
     def clear(self):
         del self.session['cart']
         self.save()
 
-    def __len__(self):
-        return len(self.cart.keys())
-
     def get_total_price(self):
         product_ids = self.cart.keys()
         products = Product.objects.filter(id__in=product_ids)
         return sum(product.price for product in products)
-
-    def save(self):
-        self.session.modified = True
 
 
 

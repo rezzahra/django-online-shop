@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _
 import products.models
 from .forms import CommentForm
 from .models import Product, Comment, ActiveCommentManager
-
+from cart.forms import AddCartForm
 
 
 class ProductListView(generic.ListView):
@@ -17,7 +17,7 @@ class ProductListView(generic.ListView):
 class ProductDietailView(generic.DetailView):
     model = Product
     template_name = 'products/detial_view.html'
-    context_object_name = 'products'
+    context_object_name = 'product'
 
 
     def get_context_data(self, **kwargs):
@@ -25,6 +25,7 @@ class ProductDietailView(generic.DetailView):
         products = self.object
         context['comments']=products.comments(manager='active_comments').all()
         context['comment_form'] = CommentForm()
+        context['add_to_cart_form'] = AddCartForm()
         return context
 
 
