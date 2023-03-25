@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
@@ -59,6 +60,13 @@
                                         <span class="mm-text">وبلاگ</span>
                                     </a>
                                 </li>
+
+                                <li class="mainmenu__item menu-item-has-children">
+                                    <a href="{% url 'products_list' %}" class="mainmenu__link">
+                                        <span class="mm-text">{% translate 'shop' %}</span>
+                                    </a>
+                                </li>
+
                                 <li class="mainmenu__item menu-item-has-children">
                                     <a href="#" class="mainmenu__link">
                                         <span class="mm-text">صفحات</span>
@@ -83,7 +91,7 @@
                         <li class="header-toolbar__item mini-cart-item">
                             <a href="#miniCart" class="header-toolbar__btn toolbar-btn mini-cart-btn">
                                 <i class="flaticon flaticon-shopping-cart"></i>
-                                <sup class="mini-cart-count">2</sup>
+                                <sup class="mini-cart-count">{{ cart|length }}</sup>
                             </a>
                         </li>
                         <li class="header-toolbar__item user-info">
@@ -91,18 +99,22 @@
                                 <i class="flaticon flaticon-user"></i>
                             </a>
                             <ul class="user-info-menu">
+                                {% if user.is_authenticated %}
                                 <li>
-                                    <a class="text-right" href="my-account.html">حساب کاربری</a>
+                                    <a class="text-right" href="{% url 'account_logout' %}">{% translate 'logout' %}</a>
+                                </li>
+                                    <li>
+                                    <a class="text-right" href="order-tracking.html">{% trans 'profile' %}</a>
+                                </li>
+                                {% else %}
+                                <li>
+                                    <a class="text-right" href="{% url 'account_login' %}">{% trans 'login'%}</a>
                                 </li>
                                 <li>
-                                    <a class="text-right" href="cart.html">سبد خرید</a>
+                                    <a class="text-right" href="{% url 'account_signup' %}">{% trans 'signup' %}</a>
                                 </li>
-                                <li>
-                                    <a class="text-right" href="wishlist.html">علاقه مندی ها</a>
-                                </li>
-                                <li>
-                                    <a class="text-right" href="order-tracking.html">تاریخچه سفارشات</a>
-                                </li>
+                                {% endif %}
+
                             </ul>
                         </li>
                         <li class="header-toolbar__item">
@@ -145,6 +157,9 @@
 
 
 
-{#<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>#}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+{% block scripts %}
+{% endblock scripts %}
+
 </body>
 </html>

@@ -6,7 +6,8 @@ import products.models
 from .forms import CommentForm
 from .models import Product, Comment, ActiveCommentManager
 from cart.forms import AddCartForm
-
+from cart.cart import Cart
+from cart.views import cart_detail_view, add_to_cart_view
 
 class ProductListView(generic.ListView):
     queryset = Product.objects.filter(active=True)
@@ -23,10 +24,18 @@ class ProductDietailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         products = self.object
+        cart = Cart(self.request).cart
+        quantity_cart=0
+        product_id_str = str(self.kwargs.get('pk'))
+        if product_id_str in cart:
+            quantity_cart = cart[product_id_str]['quantity']
         context['comments']=products.comments(manager='active_comments').all()
         context['comment_form'] = CommentForm()
-        context['add_to_cart_form'] = AddCartForm()
+        context['add_to_cart_form'] = AddCartForm
+        context['quantity'] = quantity_cart
         return context
+
+
 
 
 
