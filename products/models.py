@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
@@ -7,7 +8,7 @@ class Product(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
     price = models.PositiveIntegerField(default=0)
-    created_time = models.DateTimeField(auto_now_add=True)
+    created_time = models.DateTimeField(default=timezone.now)
     modified_time = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     img = models.ImageField(verbose_name=_('product image'), upload_to='product/product_cover/', blank=True)
