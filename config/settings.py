@@ -45,12 +45,14 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rosetta',
+    'jalali_date',
 
 
     'acounts',
     'pages',
     'products.apps.ProductsConfig',
     'cart.apps.CartConfig',
+    'translate_number.apps.TranslateNumberConfig'
 
 ]
 
