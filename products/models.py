@@ -10,6 +10,7 @@ class Product(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     modified_time = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
+    img = models.ImageField(verbose_name=_('product image'), upload_to='product/product_cover/', blank=True)
 
     def __str__(self):
         return self.title
